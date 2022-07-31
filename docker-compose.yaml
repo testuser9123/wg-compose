@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  wireguard:
+    image: ghcr.io/linuxserver/wireguard
+    container_name: wireguard
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    environment:
+      - "PUID=${UID}"
+      - "PGID=${GID}"
+      - "TZ=${TIMEZONE}"
+      - SERVERURL=auto
+      - SERVERPORT=51821
+      - PEERS=mac,iphone
+      - PEERDNS=auto
+      - INTERNAL_SUBNET=10.13.13.0
+      - ALLOWEDIPS=0.0.0.0/0
+    volumes:
+      - ~/docker/wireguard:/config
+      - /lib/modules:/lib/modules
+    ports:
+      - 51821:51820/udp
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+    restart: unless-stopped

@@ -18,7 +18,6 @@ services:
       - INTERNAL_SUBNET=10.13.13.0
       - ALLOWEDIPS=0.0.0.0/0
     volumes:
-      - ~/docker/wireguard:/config
       - /lib/modules:/lib/modules
     ports:
       - 51821:51820/udp
